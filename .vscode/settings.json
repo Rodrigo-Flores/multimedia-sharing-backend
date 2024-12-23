@@ -1,0 +1,18 @@
+{
+  "conventionalCommits.scopes": [
+    "api",
+    "core",
+    "config",
+    "deps",
+    "docs",
+    "test",
+    "routes",
+    "middleware",
+    "types",
+    "validation",
+    "cache",
+    "redis",
+    "media",
+    "metadata"
+  ]
+}
