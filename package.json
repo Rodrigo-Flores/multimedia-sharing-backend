@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  },
+  "name": "multimedia-sharing-backend",
+  "version": "1.0.0",
+  "main": "app.js",
+  "repository": "git@github.com:Rodrigo-Flores/multimedia-sharing-backend.git",
+  "author": "Rodrigo-Flores <dev.rodrigoflores@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc && tsc-alias",
+    "start": "node dist/src/app.js",
+    "dev": "tsx watch src/app.ts"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "ts-node-dev": "^2.0.0",
+    "tsc-alias": "^1.8.10",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
