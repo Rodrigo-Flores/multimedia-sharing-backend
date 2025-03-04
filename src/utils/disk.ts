@@ -11,14 +11,14 @@ class Disk {
     this.basePath = path.resolve(this.basePath);
   }
 
-  getFiles(folderPath: string, search?: string, sort?: 'asc' | 'desc', createdAtOrder?: string): { name: string; createdAt: number }[] {
+  getFiles(folderPath: string, search?: string, sort?: 'asc' | 'desc', createdAtOrder?: string): { name: string; createdAt: string }[] {
     const directoryPath = folderPath;
 
     try {
       const files = fs.readdirSync(directoryPath).map((file) => {
         const filePath = path.join(directoryPath, file);
         const stats = fs.statSync(filePath);
-        return { name: file, createdAt: stats.birthtimeMs };
+        return { name: file, createdAt: new Date(stats.birthtimeMs).toISOString() };
       });
 
       let filteredFiles = files;
@@ -28,7 +28,7 @@ class Disk {
       }
 
       if (createdAtOrder) {
-        filteredFiles.sort((a, b) => (createdAtOrder === 'asc' ? a.createdAt - b.createdAt : b.createdAt - a.createdAt));
+        filteredFiles.sort((a, b) => (createdAtOrder === 'asc' ? new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime() : new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()));
 
       } else {
         filteredFiles.sort((a, b) => (sort === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name)));
