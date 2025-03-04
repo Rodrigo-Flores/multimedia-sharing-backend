@@ -1,3 +1,4 @@
+// ! examples, remove asap
 export interface User {
   id: string;
   username: string;
@@ -7,7 +8,6 @@ export interface User {
   updatedAt: Date;
 }
 
-// Media type
 export interface Media {
   id: string;
   userId: string;
@@ -17,7 +17,6 @@ export interface Media {
   updatedAt: Date;
 }
 
-// Comment type
 export interface Comment {
   id: string;
   userId: string;
@@ -27,7 +26,6 @@ export interface Comment {
   updatedAt: Date;
 }
 
-// Like type
 export interface Like {
   id: string;
   userId: string;
@@ -35,6 +33,5 @@ export interface Like {
   createdAt: Date;
 }
 
-// Global types
 export type UUID = string;
 export type Timestamp = Date;
