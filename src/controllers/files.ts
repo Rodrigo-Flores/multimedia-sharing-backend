@@ -1,22 +1,18 @@
 import { Request, Response } from 'express';
 import path from 'path';
+//
 import Disk from "@ms/utils/disk";
 
 const getFiles = async (req: Request, res: Response) => {
-  //crea instancia de Disk
-  const disk = new Disk();
+  const disk = new Disk(req.query.path ? path.resolve(req.query.path.toString()) : path.resolve('./'));
 
-  //lee parámetros de la solicitud
-  const directoryPath = req.query.path ? path.resolve(req.query.path.toString()) : path.resolve('./'); //directorio actual por defecto
   const search = req.query.search?.toString();
-  const sort = req.query.sort === 'desc' ? 'desc' : 'asc'; //orden asc por defecto
-  const createdAtOrder = req.query.createdAt ? req.query.createdAt.toString() : ''; //por fecha
+  const sort = req.query.sort === 'desc' ? 'desc' : 'asc';
+  const createdAtOrder = req.query.createdAt ? req.query.createdAt.toString() : '';
 
   try {
-    //se llama el método con sus parámetros
-    const files = disk.getFiles(directoryPath, search, sort, createdAtOrder);
+    const files = disk.getFiles(disk.basePath, search, sort, createdAtOrder);
 
-    //devuelve los archivos
     res.status(200).json({ files });
 
   } catch (error) {

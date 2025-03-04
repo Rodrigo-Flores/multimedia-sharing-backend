@@ -3,11 +3,13 @@ import path from 'path';
 
 export interface FileData {
   name: string;
-  createdAt: number; //Timestamp para ordenar por fecha
+  createdAt: number;
 }
 
 class Disk {
-  constructor(private basePath: string = './') { }
+  constructor(public basePath: string = './') { 
+    this.basePath = path.resolve(this.basePath);
+  }
 
   getFiles(folderPath: string, search?: string, sort?: 'asc' | 'desc', createdAtOrder?: string): { name: string; createdAt: number }[] {
     const directoryPath = folderPath;
@@ -42,14 +44,10 @@ class Disk {
     return [];
   }
 
-  // Example method to upload a file to the drive
   uploadFile(file: any) {
-    // Logic to upload a file to the drive
   }
 
-  // Example method to delete a file from the drive
   deleteFile(fileId: string) {
-    // Logic to delete a file from the drive
   }
 }
 
