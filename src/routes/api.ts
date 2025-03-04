@@ -1,9 +1,11 @@
 import express from "express";
 //
-import imagesRoutes from "./files";
+import fileRoutes from "./files";
+import directoryRoutes from "./directories";
 
 const router = express.Router();
 
-router.use("/images", imagesRoutes);
+router.use("/files", fileRoutes);
+router.use("/directories", directoryRoutes);
 
 export default router;

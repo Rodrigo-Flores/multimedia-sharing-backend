@@ -1,8 +1,8 @@
 import { Router } from "express";
-import imagesController from "@ms/controllers/files"
+import filesController from "@ms/controllers/files";
 
 const router = Router();
 
-router.get("/files", imagesController.getFiles);
+router.get("/", filesController.getFiles);
 
 export default router;
