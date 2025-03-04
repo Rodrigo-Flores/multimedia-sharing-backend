@@ -1,20 +1,36 @@
 {
   "compilerOptions": {
-    "outDir": "dist",
-    "target": "es2016",
+    "target": "ES2024",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
+    "outDir": "./dist",
+    "rootDir": "./",
+    "baseUrl": "./",
+    "paths": {
+      "@ms/*": [
+        "src/*"
+      ]
+    },
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/types"
+    ],
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
-    "rootDir": "./",
-    "typeRoots": ["./node_modules/@types", "./src/types"],
-    "baseUrl": "./",
-    "paths": {
-      "@ms/*": ["src/*"]
-    }
+    "resolveJsonModule": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }
