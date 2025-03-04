@@ -7,32 +7,27 @@ export interface FileData {
 }
 
 class Disk {
-  constructor(private basePath: string = './') {}
+  constructor(private basePath: string = './') { }
 
-  //method to get files from the disk
-  getFiles(folderPath: string, search?: string, sort?: 'asc' | 'desc', createdAtOrder? : string): { name: string; createdAt: number }[] {
-    const directoryPath = path.join(this.basePath, folderPath);
+  getFiles(folderPath: string, search?: string, sort?: 'asc' | 'desc', createdAtOrder?: string): { name: string; createdAt: number }[] {
+    const directoryPath = folderPath;
 
     try {
-      //lee archivos del directorio
       const files = fs.readdirSync(directoryPath).map((file) => {
         const filePath = path.join(directoryPath, file);
         const stats = fs.statSync(filePath);
-        return {name: file, createdAt: stats.birthtimeMs};
+        return { name: file, createdAt: stats.birthtimeMs };
       });
 
-      //búsqueda Fuzzy
       let filteredFiles = files;
       if (search) {
         const searchLower = search.toLowerCase();
         filteredFiles = filteredFiles.filter((file) => file.name.toLowerCase().includes(searchLower));
       }
 
-      //ordena por fecha
       if (createdAtOrder) {
         filteredFiles.sort((a, b) => (createdAtOrder === 'asc' ? a.createdAt - b.createdAt : b.createdAt - a.createdAt));
-      
-      //ordena alfabéticamente  
+
       } else {
         filteredFiles.sort((a, b) => (sort === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name)));
       }

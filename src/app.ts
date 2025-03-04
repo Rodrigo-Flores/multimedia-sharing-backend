@@ -16,7 +16,7 @@ app.use(express.json());
 
 //config de rutas
 app.use("/api", api);
-app.use("/api/images", imagesRouter);
+app.use("/api/files", imagesRouter);
 
 //inicializa el server
 app.listen(port, () => {

@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import path from 'path';
 import Disk from "@ms/utils/disk";
 
-const getImages = async (req: Request, res: Response) => {
+const getFiles = async (req: Request, res: Response) => {
   //crea instancia de Disk
   const disk = new Disk();
 
@@ -25,5 +25,5 @@ const getImages = async (req: Request, res: Response) => {
 }
 
 export default {
-  getImages,
+  getFiles,
 }
