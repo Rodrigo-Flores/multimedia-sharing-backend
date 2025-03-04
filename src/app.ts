@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 //
 import logger, { colors } from "@ms/utils/logger";
 import api from "@ms/routes/api";
-import imagesRouter from '@ms/routes/files';
 
 dotenv.config();
 
@@ -54,7 +53,6 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 app.use("/api", api);
-app.use("/api/files", imagesRouter);
 
 app.listen(port, () => {
   logger.scopedInfo('server', `Server running on http://localhost:${port}`);
