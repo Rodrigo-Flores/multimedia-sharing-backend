@@ -1,13 +1,9 @@
 import fs from 'fs';
 import path from 'path';
-
-export interface FileData {
-  name: string;
-  createdAt: number;
-}
+import logger from './logger';
 
 class Disk {
-  constructor(public basePath: string = './') { 
+  constructor(public basePath: string = './') {
     this.basePath = path.resolve(this.basePath);
   }
 
@@ -36,12 +32,42 @@ class Disk {
       return filteredFiles;
 
     } catch (error) {
+      logger.scopedError('disk', `Error reading files from ${directoryPath}: ${String(error)}`);
       throw new Error(`Error reading files from ${directoryPath}: ${String(error)}`);
     }
   }
 
   getDirectories() {
-    return [];
+    try {
+      const directories: { [key: string]: any } = {};
+      const entries = fs.readdirSync(this.basePath, { withFileTypes: true });
+
+      const subDirs = entries.filter(entry => entry.isDirectory());
+
+      for (const dir of subDirs) {
+        const dirPath = path.join(this.basePath, dir.name);
+        directories[dir.name] = this.processDirectory(dirPath);
+      }
+
+      return directories;
+    } catch (error) {
+      logger.scopedError('disk', `Error reading directories from ${this.basePath}: ${String(error)}`);
+      throw new Error(`Error reading directories from ${this.basePath}: ${String(error)}`);
+    }
+  }
+
+  private processDirectory(dirPath: string): { files: number; subdirs: any } {
+    const entries = fs.readdirSync(dirPath, { withFileTypes: true });
+    const filesCount = entries.filter(entry => entry.isFile()).length;
+    const subdirs: { [key: string]: any } = {};
+
+    const subDirs = entries.filter(entry => entry.isDirectory());
+    for (const dir of subDirs) {
+      const subDirPath = path.join(dirPath, dir.name);
+      subdirs[dir.name] = this.processDirectory(subDirPath);
+    }
+
+    return { files: filesCount, subdirs };
   }
 
   uploadFile(file: any) {
